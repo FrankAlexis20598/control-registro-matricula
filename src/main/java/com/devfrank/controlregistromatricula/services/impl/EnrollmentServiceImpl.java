@@ -23,7 +23,7 @@ public class EnrollmentServiceImpl extends BaseCrudServiceImpl<Enrollment, Enrol
     }
 
     @Override
-    protected GenericMapper<Enrollment, EnrollmentDTO> getMapper() {
+    protected GenericMapper<Enrollment, EnrollmentDTO, Integer> getMapper() {
         return enrollmentMapper;
     }
 }

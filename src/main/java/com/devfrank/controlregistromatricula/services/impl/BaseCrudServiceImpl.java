@@ -10,7 +10,7 @@ public abstract class BaseCrudServiceImpl<E, D, ID> implements IBaseCrudService<
 
     protected abstract BaseCrudRepository<E, ID> getRepository();
 
-    protected abstract GenericMapper<E, D> getMapper();
+    protected abstract GenericMapper<E, D, ID> getMapper();
 
     @Override
     public List<D> findAll() throws Exception {
@@ -32,7 +32,7 @@ public abstract class BaseCrudServiceImpl<E, D, ID> implements IBaseCrudService<
     @Override
     public D update(ID id, D dto) throws Exception {
         getRepository().findById(id).orElseThrow(Exception::new);
-        E entity = getMapper().toEntity(dto);
+        E entity = getMapper().toEntity(dto, id);
         E updatedEntity = getRepository().save(entity);
         return getMapper().toDto(updatedEntity);
     }

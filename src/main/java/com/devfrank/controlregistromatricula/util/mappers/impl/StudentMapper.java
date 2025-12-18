@@ -7,7 +7,7 @@ import com.devfrank.controlregistromatricula.util.mappers.GenericMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StudentMapper implements GenericMapper<Student, StudentDTO> {
+public class StudentMapper implements GenericMapper<Student, StudentDTO, Integer> {
 
     @Override
     public Student toEntity(StudentDTO dto) {
@@ -21,6 +21,13 @@ public class StudentMapper implements GenericMapper<Student, StudentDTO> {
         student.setDocumentType(DocumentType.fromName(dto.getDocumentType()).getCode());
         student.setDocumentNumber(dto.getDocumentNumber());
         student.setAge(dto.getAge());
+        return student;
+    }
+
+    @Override
+    public Student toEntity(StudentDTO dto, Integer id) {
+        Student student = toEntity(dto);
+        student.setId(id);
         return student;
     }
 

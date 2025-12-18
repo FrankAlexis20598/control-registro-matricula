@@ -6,7 +6,7 @@ import com.devfrank.controlregistromatricula.util.mappers.GenericMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CourseMapper implements GenericMapper<Course, CourseDTO> {
+public class CourseMapper implements GenericMapper<Course, CourseDTO, Integer> {
 
     @Override
     public Course toEntity(CourseDTO dto) {
@@ -18,6 +18,13 @@ public class CourseMapper implements GenericMapper<Course, CourseDTO> {
         course.setName(dto.getName());
         course.setAcronym(dto.getAcronym());
         course.setStatus(dto.isStatus());
+        return course;
+    }
+
+    @Override
+    public Course toEntity(CourseDTO dto, Integer id) {
+        Course course = toEntity(dto);
+        course.setId(id);
         return course;
     }
 

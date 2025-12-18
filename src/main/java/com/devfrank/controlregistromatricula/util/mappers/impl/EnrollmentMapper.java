@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class EnrollmentMapper implements GenericMapper<Enrollment, EnrollmentDTO> {
+public class EnrollmentMapper implements GenericMapper<Enrollment, EnrollmentDTO, Integer> {
 
     private final EnrollmentDetailMapper enrollmentDetailMapper;
 
@@ -28,6 +28,13 @@ public class EnrollmentMapper implements GenericMapper<Enrollment, EnrollmentDTO
         enrollment.setStudent(student);
         enrollment.setEnrollmentDetails(enrollmentDetailMapper.toEntityList(dto.getEnrollmentDetails()));
         enrollment.setStatus(dto.getStatus());
+        return enrollment;
+    }
+
+    @Override
+    public Enrollment toEntity(EnrollmentDTO dto, Integer id) {
+        Enrollment enrollment = toEntity(dto);
+        enrollment.setId(id);
         return enrollment;
     }
 

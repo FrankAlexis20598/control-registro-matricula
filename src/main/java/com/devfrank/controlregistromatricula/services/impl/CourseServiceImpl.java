@@ -23,7 +23,7 @@ public class CourseServiceImpl extends BaseCrudServiceImpl<Course, CourseDTO, In
     }
 
     @Override
-    protected GenericMapper<Course, CourseDTO> getMapper() {
+    protected GenericMapper<Course, CourseDTO, Integer> getMapper() {
         return courseMapper;
     }
 }

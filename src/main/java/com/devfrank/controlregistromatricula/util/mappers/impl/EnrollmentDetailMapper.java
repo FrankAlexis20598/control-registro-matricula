@@ -9,7 +9,7 @@ import com.devfrank.controlregistromatricula.util.mappers.GenericMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EnrollmentDetailMapper implements GenericMapper<EnrollmentDetail, EnrollmentDetailDTO> {
+public class EnrollmentDetailMapper implements GenericMapper<EnrollmentDetail, EnrollmentDetailDTO, Integer> {
 
     @Override
     public EnrollmentDetail toEntity(EnrollmentDetailDTO dto) {
@@ -27,6 +27,13 @@ public class EnrollmentDetailMapper implements GenericMapper<EnrollmentDetail, E
         enrollmentDetail.setEnrollment(enrollment);
         enrollmentDetail.setCourse(course);
         enrollmentDetail.setClassroom(dto.getClassroom());
+        return enrollmentDetail;
+    }
+
+    @Override
+    public EnrollmentDetail toEntity(EnrollmentDetailDTO dto, Integer id) {
+        EnrollmentDetail enrollmentDetail = toEntity(dto);
+        enrollmentDetail.setId(id);
         return enrollmentDetail;
     }
 

@@ -3,9 +3,11 @@ package com.devfrank.controlregistromatricula.util.mappers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public interface GenericMapper<E, D> {
+public interface GenericMapper<E, D, ID> {
 
     E toEntity(D dto);
+
+    E toEntity(D dto, ID id);
 
     D toDto(E entity);
 

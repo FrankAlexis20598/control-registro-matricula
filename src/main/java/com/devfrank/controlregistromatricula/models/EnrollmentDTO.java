@@ -1,6 +1,7 @@
 package com.devfrank.controlregistromatricula.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.validation.constraints.NotEmpty;
@@ -17,6 +18,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EnrollmentDTO implements Serializable {
 
     @Serial
@@ -31,6 +33,10 @@ public class EnrollmentDTO implements Serializable {
     @NotNull
     @JsonIncludeProperties(value = {"id"})
     private StudentDTO student;
+
+    @NotNull
+    @JsonIncludeProperties(value = {"id"})
+    private UserDTO user;
 
     @NotNull
     @NotEmpty

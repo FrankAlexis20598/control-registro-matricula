@@ -1,4 +1,4 @@
-package com.devfrank.controlregistromatricula.security;
+package com.devfrank.controlregistromatricula.security.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

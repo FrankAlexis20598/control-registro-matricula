@@ -1,6 +1,7 @@
 package com.devfrank.controlregistromatricula.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +9,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -15,6 +17,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EnrollmentDetailDTO implements Serializable {
 
     @Serial
@@ -22,6 +25,7 @@ public class EnrollmentDetailDTO implements Serializable {
 
     private Integer id;
 
+    @ToString.Exclude
     @JsonBackReference
     private EnrollmentDTO enrollment;
 

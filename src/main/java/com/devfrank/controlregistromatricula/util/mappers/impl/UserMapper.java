@@ -1,46 +1,41 @@
 package com.devfrank.controlregistromatricula.util.mappers.impl;
 
+import com.devfrank.controlregistromatricula.entities.AppUser;
 import com.devfrank.controlregistromatricula.entities.Role;
-import com.devfrank.controlregistromatricula.entities.User;
 import com.devfrank.controlregistromatricula.models.RoleDTO;
 import com.devfrank.controlregistromatricula.models.UserDTO;
 import com.devfrank.controlregistromatricula.util.mappers.GenericMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
-public class UserMapper implements GenericMapper<User, UserDTO, Integer> {
-
-    private final BCryptPasswordEncoder passwordEncoder;
+public class UserMapper implements GenericMapper<AppUser, UserDTO, Integer> {
 
     @Override
-    public User toEntity(UserDTO dto) {
+    public AppUser toEntity(UserDTO dto) {
         if (dto == null) {
             return null;
         }
-        User user = new User();
+        AppUser user = new AppUser();
         Role role = new Role();
         role.setId(dto.getRole().getId());
 
         user.setId(dto.getId());
         user.setUsername(dto.getUsername());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setPassword(dto.getPassword());
         user.setRole(role);
         user.setActive(dto.isActive());
         return user;
     }
 
     @Override
-    public User toEntity(UserDTO dto, Integer id) {
-        User user = toEntity(dto);
+    public AppUser toEntity(UserDTO dto, Integer id) {
+        AppUser user = toEntity(dto);
         user.setId(id);
         return user;
     }
 
     @Override
-    public UserDTO toDto(User entity) {
+    public UserDTO toDto(AppUser entity) {
         if (entity == null) {
             return null;
         }

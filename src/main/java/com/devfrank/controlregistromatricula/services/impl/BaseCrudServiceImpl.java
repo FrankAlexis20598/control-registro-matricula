@@ -3,6 +3,7 @@ package com.devfrank.controlregistromatricula.services.impl;
 import com.devfrank.controlregistromatricula.repositories.BaseCrudRepository;
 import com.devfrank.controlregistromatricula.services.IBaseCrudService;
 import com.devfrank.controlregistromatricula.util.mappers.GenericMapper;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
 
@@ -26,12 +27,14 @@ public abstract class BaseCrudServiceImpl<E, D, ID> implements IBaseCrudService<
 
     @Override
     public D findById(ID id) throws Exception {
-        return getRepository().findById(id).map(getMapper()::toDto).orElse(null);
+        return getRepository().findById(id)
+                .map(getMapper()::toDto)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró la entidad con id=" + id));
     }
 
     @Override
     public D update(ID id, D dto) throws Exception {
-        getRepository().findById(id).orElseThrow(Exception::new);
+        getRepository().findById(id).orElseThrow(() -> new EntityNotFoundException("No se encontró la entidad con id=" + id));
         E entity = getMapper().toEntity(dto, id);
         E updatedEntity = getRepository().save(entity);
         return getMapper().toDto(updatedEntity);

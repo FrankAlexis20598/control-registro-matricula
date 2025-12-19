@@ -37,8 +37,12 @@ public class Enrollment {
     @ManyToOne
     @JoinColumn(name = "id_student", nullable = false, foreignKey = @ForeignKey(name = "fk_enrollment_student"))
     private Student student;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_user", nullable = false, foreignKey = @ForeignKey(name = "fk_enrollment_user"))
+    private AppUser user;
 
-    @OneToMany(mappedBy = "enrollment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "enrollment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EnrollmentDetail> enrollmentDetails;
 
     @Column(nullable = false)

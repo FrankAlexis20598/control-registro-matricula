@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "users")
-public class User {
+public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class User {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false, foreignKey = @ForeignKey(name = "fk_user_role"))
+    @JoinColumn(name = "id_role", nullable = false, foreignKey = @ForeignKey(name = "fk_user_role"))
     private Role role;
 
     @Column(nullable = false)

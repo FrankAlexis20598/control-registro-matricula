@@ -2,8 +2,10 @@ package com.devfrank.controlregistromatricula.util.mappers.impl;
 
 import com.devfrank.controlregistromatricula.entities.Enrollment;
 import com.devfrank.controlregistromatricula.entities.Student;
+import com.devfrank.controlregistromatricula.entities.AppUser;
 import com.devfrank.controlregistromatricula.models.EnrollmentDTO;
 import com.devfrank.controlregistromatricula.models.StudentDTO;
+import com.devfrank.controlregistromatricula.models.UserDTO;
 import com.devfrank.controlregistromatricula.util.mappers.GenericMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -22,12 +24,18 @@ public class EnrollmentMapper implements GenericMapper<Enrollment, EnrollmentDTO
         Enrollment enrollment = new Enrollment();
         Student student = new Student();
         student.setId(dto.getStudent().getId());
+        AppUser user = new AppUser();
+        user.setId(dto.getUser().getId());
 
         enrollment.setId(dto.getId());
         enrollment.setEnrollmentDate(dto.getDate());
         enrollment.setStudent(student);
-        enrollment.setEnrollmentDetails(enrollmentDetailMapper.toEntityList(dto.getEnrollmentDetails()));
+        enrollment.setUser(user);
         enrollment.setStatus(dto.getStatus());
+        enrollment.setEnrollmentDetails(enrollmentDetailMapper.toEntityList(dto.getEnrollmentDetails())
+                .stream()
+                .peek(e -> e.setEnrollment(enrollment))
+                .toList());
         return enrollment;
     }
 
@@ -46,10 +54,13 @@ public class EnrollmentMapper implements GenericMapper<Enrollment, EnrollmentDTO
         EnrollmentDTO enrollmentDTO = new EnrollmentDTO();
         StudentDTO studentDTO = new StudentDTO();
         studentDTO.setId(entity.getStudent().getId());
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(entity.getUser().getId());
 
         enrollmentDTO.setId(entity.getId());
         enrollmentDTO.setDate(entity.getEnrollmentDate());
         enrollmentDTO.setStudent(studentDTO);
+        enrollmentDTO.setUser(userDTO);
         enrollmentDTO.setEnrollmentDetails(enrollmentDetailMapper.toDtoList(entity.getEnrollmentDetails()));
         enrollmentDTO.setStatus(entity.getStatus());
         return enrollmentDTO;

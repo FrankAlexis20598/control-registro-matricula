@@ -31,7 +31,7 @@ public class StudentDTO implements Serializable {
     private String surnames;
 
     @NotBlank
-    @ValueOfEnum(enumClass = DocumentType.class)
+    @ValueOfEnum(enumClass = DocumentType.class, message = "El tipo de documento es invalido")
     private String documentType;
 
     @NotBlank

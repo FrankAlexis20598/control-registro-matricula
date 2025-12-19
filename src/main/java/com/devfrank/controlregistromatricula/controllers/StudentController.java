@@ -48,4 +48,9 @@ public class StudentController {
         studentService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/order-by-age")
+    public ResponseEntity<List<StudentDTO>> findAllOrderByAgeDesc() throws Exception {
+        return ResponseEntity.ok(studentService.findAllOrderByAgeDesc());
+    }
 }

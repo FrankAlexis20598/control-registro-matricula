@@ -88,4 +88,20 @@ public class EnrollmentServiceImpl extends BaseCrudServiceImpl<Enrollment, Enrol
 
         return enrollmentMapper.toDto(enrollment);
     }
+
+    @Override
+    public Map<String, List<String>> getCoursesWithStudents() throws Exception {
+
+        List<Enrollment> enrollment = enrollmentRepository.findAll();
+
+        return enrollment.stream()
+                .flatMap(e -> e.getEnrollmentDetails().stream()
+                        .map(det -> Map.entry(
+                                det.getCourse().getName(),
+                                e.getStudent().getNames() + " " + e.getStudent().getSurnames())))
+                .collect(Collectors.groupingBy(
+                        Map.Entry::getKey,
+                        Collectors.mapping(Map.Entry::getValue, Collectors.toList())
+                ));
+    }
 }

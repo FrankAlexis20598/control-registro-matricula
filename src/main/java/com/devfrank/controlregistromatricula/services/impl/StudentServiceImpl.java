@@ -10,6 +10,9 @@ import com.devfrank.controlregistromatricula.util.mappers.impl.StudentMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl extends BaseCrudServiceImpl<Student, StudentDTO, Integer> implements IStudentService {
@@ -25,5 +28,14 @@ public class StudentServiceImpl extends BaseCrudServiceImpl<Student, StudentDTO,
     @Override
     protected GenericMapper<Student, StudentDTO, Integer> getMapper() {
         return studentMapper;
+    }
+
+    @Override
+    public List<StudentDTO> findAllOrderByAgeDesc() throws Exception {
+        return studentRepository.findAll()
+                .stream()
+                .map(studentMapper::toDto)
+                .sorted(Comparator.comparing(StudentDTO::getAge).reversed())
+                .toList();
     }
 }

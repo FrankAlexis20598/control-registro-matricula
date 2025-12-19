@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/enrollments")
@@ -51,5 +52,10 @@ public class EnrollmentController {
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws Exception {
         enrollmentService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/courses-with-students")
+    public ResponseEntity<Map<String, List<String>>> getCoursesWithStudents() throws Exception {
+        return ResponseEntity.ok(enrollmentService.getCoursesWithStudents());
     }
 }
